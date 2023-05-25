@@ -3,34 +3,33 @@
 /**
  * get_environ - function that returns the string array copy,
  * of the shell environment
- * @intel: Structure that has potential arguments.
+ * @info: Structure that has potential arguments.
  *
  * Return: Always 0
  */
-
-char **get_environ(data *intel)
+char **get_environ(info_t *info)
 {
-	if (!intel->environ || intel->env_changed)
+	if (!info->environ || info->env_changed)
 	{
-		intel->environ = list_to_strings(intel->env);
-		intel->env_changed = 0;
+		info->environ = list_to_strings(info->env);
+		info->env_changed = 0;
 	}
 
-	return (intel->environ);
+	return (info->environ);
 }
 
 /**
  * _unsetenv - function that unsets environment variables
- * @intel: Structure that has arguments
+ * @info: Structure that has arguments
  * @vari: the string environment variable property
  *
  *  Return: 1 for unset var
  *	0 otherwise
  *
  */
-int _unsetenv(data *intel, char *vari)
+int _unsetenv(info_t *info, char *vari)
 {
-	list_t *node = intel->env;
+	list_t *node = info->env;
 	size_t y = 0;
 	char *c;
 
@@ -42,27 +41,27 @@ int _unsetenv(data *intel, char *vari)
 		c = starts_with(node->str, vari);
 		if (c && *c == '=')
 		{
-			intel->env_changed = delete_node_at_index(&(intel->env), y);
+			info->env_changed = delete_node_at_index(&(info->env), y);
 			y = 0;
-			node = intel->env;
+			node = info->env;
 			continue;
 		}
 		node = node->next;
 		y++;
 	}
-	return (intel->env_changed);
+	return (info->env_changed);
 }
 
 /**
  * _setenv - function that Initialize a new environment variable,
  * or modify an existing one
- * @intel: Structure that has arguments
+ * @info: Structure that has arguments
  * @var:  string environent variable to initialize
  * @value:  string environment variable value to be initialized
  *
  *  Return: Always 0
  */
-int _setenv(data *intel, char *var, char *value)
+int _setenv(info_t *info, char *var, char *value)
 {
 	char *buff = NULL;
 	list_t *node;
@@ -77,7 +76,7 @@ int _setenv(data *intel, char *var, char *value)
 	_strcpy(buff, var);
 	_strcat(buff, "=");
 	_strcat(buff, value);
-	node = intel->env;
+	node = info->env;
 	while (node)
 	{
 		c = starts_with(node->str, var);
@@ -85,13 +84,13 @@ int _setenv(data *intel, char *var, char *value)
 		{
 			free(node->str);
 			node->str = buff;
-			intel->env_changed = 1;
+			info->env_changed = 1;
 			return (0);
 		}
 		node = node->next;
 	}
-	add_node_end(&(intel->env), buff, 0);
+	add_node_end(&(info->env), buff, 0);
 	free(buff);
-	intel->env_changed = 1;
+	info->env_changed = 1;
 	return (0);
 }

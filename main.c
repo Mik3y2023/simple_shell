@@ -1,16 +1,17 @@
 #include "shell.h"
 
 /**
- * main - Entry point 
+ * main - main entry point of the shell
  * @ac: argument count
  * @av: argument vector
  *
- * Return: 0 Success, 1 Error otherwise NULL
+ * Return: on success 0,
+ *	on error 1
+ *	otherwise NULL
  */
-
 int main(int ac, char **av)
 {
-	data intel[] = { INFO_INIT };
+	info_t info[] = { INFO_INIT };
 	int fd = 2;
 
 	asm ("mov %1, %0\n\t"
@@ -36,10 +37,10 @@ int main(int ac, char **av)
 			}
 			return (EXIT_FAILURE);
 		}
-		intel->readfd = fd;
+		info->readfd = fd;
 	}
-	populate_env_list(intel);
-	read_history(intel);
-	hsh(intel, av);
+	populate_env_list(info);
+	read_history(info);
+	hsh(info, av);
 	return (EXIT_SUCCESS);
 }

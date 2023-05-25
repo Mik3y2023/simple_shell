@@ -3,12 +3,13 @@
 /**
  * hsh - main shell loop function
  * @info: the parameter & return info struct containing arguments
- * @av: the argument vector from function
+ * @av: the argument vector from main() function
  *
- * Return: 0 success, 1 Error or NULL
+ * Return: 0 on success,
+ *	1 on error,
+ *	or NULL
  */
-
-int hsh(data *info, char **av)
+int hsh(info_t *info, char **av)
 {
 	ssize_t r = 0;
 	int builtin_ret = 0;
@@ -53,18 +54,18 @@ int hsh(data *info, char **av)
  *	1 if builtin found but not successful,
  *	-2 if builtin signals exit()
  */
-int find_builtin(data *info)
+int find_builtin(info_t *info)
 {
 	int x, built_in_ret = -1;
 	builtin_table builtintbl[] = {
-		{"exit", _exit},
-		{"env", _env},
-		{"help", _help},
-		{"history", _history},
-		{"setenv", _setenv},
-		{"unsetenv", _unsetenv},
-		{"cd", _cd},
-		{"alias", _alias},
+		{"exit", _myexit},
+		{"env", _myenv},
+		{"help", _myhelp},
+		{"history", _myhistory},
+		{"setenv", _mysetenv},
+		{"unsetenv", _myunsetenv},
+		{"cd", _mycd},
+		{"alias", _myalias},
 		{NULL, NULL}
 	};
 
@@ -96,7 +97,7 @@ void find_cmd(info_t *info)
 		info->linecount_flag = 0;
 	}
 	for (x = 0, y = 0; info->arg[x]; x++)
-		if (!is_delimeter(info->arg[x], " \t\n"))
+		if (!is_delim(info->arg[x], " \t\n"))
 			y++;
 	if (!y)
 		return;

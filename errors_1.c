@@ -2,11 +2,10 @@
 
 /**
  *_eputs - function that prints an input string
- * @string: the string to be printed
+ * @string: the string tht is to be printed
  *
- * Return: void
+ * Return: Nothing
  */
-
 void _eputs(char *string)
 {
 	int y = 0;
@@ -22,7 +21,7 @@ void _eputs(char *string)
 
 /**
  * _eputchar - function that writes the char d to stderr
- * @d: character to written
+ * @d: The character to written
  *
  * Return: On success 1.
  * On error, -1 is returned, and errno  printed.

@@ -8,7 +8,6 @@
  *
  *Return: the copied string
  */
-
 char *_strncpy(char *desti, char *srce, int m)
 {
 	int l, k;
@@ -40,7 +39,6 @@ char *_strncpy(char *desti, char *srce, int m)
  *
  *Return: concatenated string
  */
-
 char *_strncat(char *dest, char *src, int m)
 {
 	int l, k;
@@ -68,7 +66,6 @@ char *_strncat(char *dest, char *src, int m)
  *
  *Return:string pointer to memory area
  */
-
 char *_strchr(char *str, char d)
 {
 	do {

@@ -14,7 +14,7 @@ int _erratoi(char *str)
 	unsigned long int result = 0;
 
 	if (*str == '+')
-		str++;
+		str++;  /*   does this make main print 255? */
 	for (j = 0;  str[j] != '\0'; j++)
 	{
 		if (str[j] >= '0' && str[j] <= '9')
@@ -32,33 +32,32 @@ int _erratoi(char *str)
 
 /**
  * print_error - function that prints an error message on occurrence
- * @intel: parameter structure argument
+ * @info:  parameter info struct
  * @est: string containing  error
  * Return: 0 if no numbers in string,
  *	-1 on error
  *	converted number if worked
  *
  */
-
-void print_error(data *intel, char *est)
+void print_error(info_t *info, char *est)
 {
-	_eputs(intel->fname);
+	_eputs(info->fname);
 	_eputs(": ");
-	print_d(intel->line_count, STDERR_FILENO);
+	print_d(info->line_count, STDERR_FILENO);
 	_eputs(": ");
-	_eputs(intel->argv[0]);
+	_eputs(info->argv[0]);
 	_eputs(": ");
 	_eputs(est);
 }
 
 /**
- * print_base - function that prints  decimal number of base 10
- * @input: value to be input
+ * print_d - function that  prints  decimal number of base 10
+ * @inp: input value
  * @fd: file-descriptor to write or modify
  *
  * Return: number of chars printed
  */
-int print_base(int input, int fd)
+int print_d(int inp, int fd)
 {
 	int (*__putchar)(char) = _putchar;
 	int i, count = 0;
@@ -66,14 +65,14 @@ int print_base(int input, int fd)
 
 	if (fd == STDERR_FILENO)
 		__putchar = _eputchar;
-	if (input < 0)
+	if (inp < 0)
 	{
-		_abs_ = -input;
+		_abs_ = -inp;
 		__putchar('-');
 		count++;
 	}
 	else
-		_abs_ = input;
+		_abs_ = inp;
 	current = _abs_;
 	for (i = 1000000000; i > 1; i /= 10)
 	{
@@ -132,7 +131,6 @@ char *convert_number(long int nm, int base, int flag)
  *
  * Return: Always 0;
  */
-
 void remove_comments(char *buff)
 {
 	int y;
